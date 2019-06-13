@@ -9,10 +9,11 @@
 ```
 "repositories": [
     {
-      "type": "vcs",
-      "url": "http://adcbguo.gicp.net:9999/"
-    }
-  ]
+          "type": "git",
+          "url": "http://adcbguo.gicp.net:9999/hznt/mall_php_queue.git",
+          "reference": "master"
+        }
+]
 
 composer require hznt/mall_php_queue
 ```

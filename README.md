@@ -3,31 +3,6 @@
 ##安装使用
 
 ```
-//composer.json 增加存储库地址
-"repositories": [
-    {
-          "type": "git",
-          "url": "http://adcbguo.gicp.net:9999/hznt/mall_php_queue.git",
-          "reference": "master"
-        }
-]
-```
-
-
-```
-//增加auth.json文件
-{
-  "http-basic": {
-    "adcbguo.gicp.net:9999": {
-      "username": "账户",
-      "password": "密码"
-    }
-  }
-}
-```
-
-
-```
 composer require hznt/mall_php_queue
 ```
 ##配置文件(安装后自动生成默认配置)

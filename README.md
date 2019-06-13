@@ -2,11 +2,24 @@
 
 ##安装使用
 
-
-
 首先需要有RabbitMQ服务组件
 
+//composer.json 增加存储库地址
 
+```
+"repositories": [
+    {
+      "type": "vcs",
+      "url": "http://adcbguo.gicp.net:9999/"
+    }
+  ]
+
+composer require hznt/mall_php_queue
+```
+
+
+
+##配置进程监听
 
 
 开发模式使用监听模式(会自动加载最新代码)

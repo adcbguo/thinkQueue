@@ -1,5 +1,5 @@
 {
-  "name": "mall/queue",
+  "name": "hznt/mall_php_queue",
   "description": "this is mall queue",
   "type": "library",
   "version": "1.0.0",

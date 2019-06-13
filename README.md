@@ -2,11 +2,8 @@
 
 ##安装使用
 
-首先需要有RabbitMQ服务组件
-
-//composer.json 增加存储库地址
-
 ```
+//composer.json 增加存储库地址
 "repositories": [
     {
           "type": "git",
@@ -14,13 +11,43 @@
           "reference": "master"
         }
 ]
+```
 
+
+```
+//增加auth.json文件
+{
+  "http-basic": {
+    "adcbguo.gicp.net:9999": {
+      "username": "账户",
+      "password": "密码"
+    }
+  }
+}
+```
+
+
+```
 composer require hznt/mall_php_queue
+```
+##配置文件(安装后自动生成默认配置)
+```
+config/rabbit_mq.php
+```
+
+
+##推送消息到队列
+
+```
+use queue;
+
+queue::pash('队列消耗类@消耗方法',[传递数据],1,['exchange' => 'mall_dev_log', 'queue' => 'mall_dev_log'])
 ```
 
 
 
-##配置进程监听
+
+##配置进程监听消耗
 
 
 开发模式使用监听模式(会自动加载最新代码)

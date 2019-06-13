@@ -31,7 +31,7 @@ class Queue {
 			'attempts' => $attempts
 		];
 		$data = json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-		if (!Mq::make()->push($data)) return false;
+		if (!Mq::make($mq)->push($data)) return false;
 		return $job_id;
 	}
 }

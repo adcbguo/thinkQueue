@@ -35,8 +35,8 @@ class Mq {
 		'heartbeat' => 60,
 		'channel_rpc_timeout' => 0.0,
 		'ssl_protocol' => null,
-		'exchange' => 'mall',
-		'queue' => 'mall/test',
+		'exchange' => 'mall_dev',
+		'queue' => 'mall_dev',
 	];
 
 	/**
@@ -58,7 +58,7 @@ class Mq {
 	 */
 	public function __construct(array $options = []) {
 
-		$this->options = array_merge($this->options, config('RabbitMQ'));
+		$this->options = array_merge($this->options, config('rabbit_mq'));
 
 		if (!empty($options)) {
 			$this->options = array_merge($this->options, $options);
@@ -68,7 +68,6 @@ class Mq {
 			//创建一个链接
 			$this->handler = (new \ReflectionClass('PhpAmqpLib\Connection\AMQPStreamConnection'))->newInstanceArgs($this->options);
 		} catch (AMQPIOException $exception) {
-			logMsgDB("队列服务器不在线:" . json_encode($options));
 			exit(json_encode(['code' => 400, 'data' => new  \stdClass(), 'msg' => '队列服务器不在线!']));
 		}
 	}

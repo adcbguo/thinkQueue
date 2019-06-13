@@ -1,0 +1,35 @@
+{
+  "name": "mall/queue",
+  "description": "this is mall queue",
+  "type": "library",
+  "version": "1.0.0",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "aaron",
+      "email": "adcbguo@qq.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.2.0",
+    "topthink/framework": "5.1.*"
+  },
+  "conflict": {
+    "topthink/think-queue": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "queue\\": "queue"
+    },
+    "files": [
+      "queue/common.php"
+    ]
+  },
+  "extra": {
+    "think": {
+      "config": {
+        "queue": "rabbit_mq.php"
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+<?php
+return [
+	'host' => '',
+	'port' => '5672',
+	'user' => '',
+	'password' => '',
+	'vhost' => '/',
+	'insist' => false,
+	'login_method' => 'AMQPLAIN',
+	'login_response' => null,
+	'locale' => 'en_US',
+	'connection_timeout' => 3.0,
+	'read_write_timeout' => 130.0,
+	'context' => null,
+	'keepalive' => true,
+	'heartbeat' => 60,
+	'channel_rpc_timeout' => 0.0,
+	'ssl_protocol' => null,
+	'exchange' => 'test',
+	'queue' => 'test',
+];

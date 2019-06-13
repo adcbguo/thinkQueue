@@ -100,7 +100,7 @@ class Worker {
 	 */
 	public function process(Job $job, string $action, $maxTries, array $body, AMQPMessage $msg) {
 		if ($maxTries > 0 && $job->attempts() > $maxTries) {
-//			$this->failed("执行不能超过指定次数,当前指定{$maxTries}次!", $body);
+			//执行不能超过指定次数
 		} else {
 			try {
 				if (!$job->{$action}()){
@@ -126,11 +126,11 @@ class Worker {
 	 * @throws \think\Exception
 	 */
 	public function failed(string $msg, array $body) {
-		Db::connect('mall_log')->name('queue_log')->insert([
-			'job' => $body['job'],
-			'data' => json_encode($body['data']),
-			'msg' => $msg,
-			'time' => date('Y-m-d H:i:s'),
-		]);
+//		Db::connect('mall_log')->name('queue_log')->insert([
+//			'job' => $body['job'],
+//			'data' => json_encode($body['data']),
+//			'msg' => $msg,
+//			'time' => date('Y-m-d H:i:s'),
+//		]);
 	}
 }

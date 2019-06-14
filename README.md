@@ -12,7 +12,7 @@ composer require hznt/mall_php_queue
 ```
 
 
-##发布消息队列
+发布消息队列
 
 ```
 use Queue;
@@ -22,7 +22,7 @@ Queue::pash($job,$data,$attempts,['exchange' => 'mall_dev_log', 'queue' => 'mall
 
  `$job` 是任务名 
 
->执行队列消耗类fire,写类名即可 'app\log\jobs\ErrorLogJobs'
+>执行队列消耗类fire,写类名即可 `app\log\jobs\ErrorLogJobs`
 
 
 >如果一个任务类里有多个小任务的话,需要用@+方法名 `app\log\jobs\OrderLogJobs@update`
@@ -66,7 +66,7 @@ php think queue:work --exchange=mall_dev --queue=mall_dev --memory=128 --tries=3
 
 > `tries` 单个消息执行最大次数
 
-> 可配合supervisor使用，保证进程常驻
+> 可配合`supervisor`使用，保证进程常驻
 
 
 

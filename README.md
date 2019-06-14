@@ -5,9 +5,9 @@
 ```
 composer require hznt/mall_php_queue
 ```
-##配置文件(安装后自动生成默认配置)
+##配置文件
 ```
-config/rabbit_mq.php
+复制composer库目录下的 rabbit_mq.php 文件到 config/rabbit_mq.php
 ```
 
 

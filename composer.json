@@ -25,12 +25,5 @@
     "files": [
       "queue/common.php"
     ]
-  },
-  "extra": {
-    "think": {
-      "config": {
-        "rabbit_mq": "rabbit_mq.php"
-      }
-    }
   }
 }

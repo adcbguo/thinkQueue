@@ -18,7 +18,7 @@ class Mq {
 	 * 配置项
 	 * @var array
 	 */
-	private $options = [
+	private static $options = [
 		'host' => '',
 		'port' => '5672',
 		'user' => '',
@@ -56,24 +56,10 @@ class Mq {
 	 * @param array $options
 	 * @throws \ReflectionException
 	 */
-	public function __construct(array $options = []) {
-
-		$config = config();
-		$rabbit_mq = isset($config['rabbit_mq']) ? $config['rabbit_mq'] : [];
-
-		$this->options = array_merge($this->options, $rabbit_mq);
-
-		if (!empty($options)) {
-			$this->options = array_merge($this->options, $options);
-		}
-
-		if (!empty($options)) {
-			$this->options = array_merge($this->options, $options);
-		}
-
+	public function __construct() {
 		try {
 			//创建一个链接
-			$this->handler = (new \ReflectionClass('PhpAmqpLib\Connection\AMQPStreamConnection'))->newInstanceArgs($this->options);
+			$this->handler = (new \ReflectionClass('PhpAmqpLib\Connection\AMQPStreamConnection'))->newInstanceArgs(self::$options);
 		} catch (AMQPIOException $exception) {
 			exit(json_encode(['code' => 400, 'data' => new  \stdClass(), 'msg' => '队列服务器不在线!']));
 		}
@@ -90,8 +76,18 @@ class Mq {
 	 * @throws \ReflectionException
 	 */
 	public static function make(array $options = []) {
+		$config = config();
+		$rabbit_mq = isset($config['rabbit_mq']) ? $config['rabbit_mq'] : [];
+
+		self::$options = array_merge(self::$options, $rabbit_mq);
+
+		if (!empty($options)) {
+			self::$options = array_merge(self::$options, $options);
+		}
+
+		//使用同一个链接对象
 		if (!is_object(self::$instance)) {
-			self::$instance = new static($options);
+			self::$instance = new static();
 		}
 		return self::$instance;
 	}

@@ -58,7 +58,14 @@ class Mq {
 	 */
 	public function __construct(array $options = []) {
 
-		$this->options = array_merge($this->options, config('rabbit_mq'));
+		$config = config();
+		$rabbit_mq = isset($config['rabbit_mq']) ? $config['rabbit_mq'] : [];
+
+		$this->options = array_merge($this->options, $rabbit_mq);
+
+		if (!empty($options)) {
+			$this->options = array_merge($this->options, $options);
+		}
 
 		if (!empty($options)) {
 			$this->options = array_merge($this->options, $options);

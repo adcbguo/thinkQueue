@@ -23,8 +23,8 @@ class Work extends Command {
 
 	protected function configure() {
 		$this->setName('queue:work')
-			->addOption('exchange', 'e', Option::VALUE_REQUIRED, 'exchange', 128)
-			->addOption('queue', 'q', Option::VALUE_REQUIRED, 'queue', 128)
+			->addOption('exchange', 'e', Option::VALUE_OPTIONAL, 'exchange', 128)
+			->addOption('queue', 'q', Option::VALUE_OPTIONAL, 'queue', 128)
 			->addOption('memory', 'm', Option::VALUE_OPTIONAL, 'memory', 128)
 			->addOption('tries', 't', Option::VALUE_OPTIONAL, 'tries', 1)
 			->setDescription('Process queue');
@@ -42,6 +42,7 @@ class Work extends Command {
 		$queue = $input->getOption('queue');
 		$memory = $input->getOption('memory');
 		$tries = $input->getOption('tries');
-		$this->worker->pop($tries, $memory, ['exchange' => $exchange, 'queue' => $queue]);
+		$config = (!empty($exchange) AND !empty($queue)) ? ['exchange' => $exchange, 'queue' => $queue] : [];
+		$this->worker->pop($tries, $memory, $config);
 	}
 }

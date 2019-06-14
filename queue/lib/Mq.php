@@ -100,9 +100,9 @@ class Mq {
 	public function push(string $msg) {
 		try {
 			$channel = $this->handler->channel();
-			$channel->exchange_declare($this->options['exchange'], 'fanout', false, true, false);
+			$channel->exchange_declare(self::$options['exchange'], 'fanout', false, true, false);
 			$message = new AMQPMessage($msg, ['content_type' => 'text/plain']);
-			$channel->basic_publish($message, $this->options['exchange']);
+			$channel->basic_publish($message, self::$options['exchange']);
 			$channel->close();
 			return true;
 		} catch (Throwable $e) {
@@ -117,8 +117,8 @@ class Mq {
 	 */
 	public function monitor(Closure $callback) {
 		$channel = $this->handler->channel();
-		$channel->queue_declare($this->options['exchange'], false, true, false, false);
-		$channel->basic_consume($this->options['queue'], '', false, false, false, false, function ($message) use ($callback) {
+		$channel->queue_declare(self::$options['exchange'], false, true, false, false);
+		$channel->basic_consume(self::$options['queue'], '', false, false, false, false, function ($message) use ($callback) {
 			$callback($message);
 		});
 		while (count($channel->callbacks)) {

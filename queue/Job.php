@@ -35,10 +35,11 @@ abstract class Job {
 
 	/**
 	 * 队列回归
+	 * @param array $config
 	 * @throws \ReflectionException
 	 */
-	public function release() {
-		Queue::push($this->name, $this->data, $this->attempts + 1);
+	public function release($config) {
+		Queue::push($this->name, $this->data, $this->attempts + 1, $config);
 	}
 
 	/**

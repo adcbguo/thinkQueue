@@ -27,7 +27,7 @@ class Worker {
 	 * @throws \ReflectionException
 	 */
 	public function pop(int $maxTries = 1, int $memory = 128, array $config = []) {
-		Mq::make($config)->monitor(function (AMQPMessage $msg) use ($maxTries, $memory) {
+		Mq::make($config)->monitor(function (AMQPMessage $msg) use ($maxTries, $memory, $config) {
 
 			$body = json_decode($msg->getBody(), true);
 
@@ -43,7 +43,7 @@ class Worker {
 			$job = $this->makeJob($body);
 
 			if (is_object($job)) {
-				$this->process($job, $action, $maxTries, $body, $msg);
+				$this->process($job, $action, $maxTries, $body, $msg, $config);
 			} else {
 				$this->delete($msg);
 				$this->failed("当前队列类:{$body['job']}不存在,请检查!", $body);
@@ -97,9 +97,10 @@ class Worker {
 	 * @param int $maxTries
 	 * @param array $body
 	 * @param AMQPMessage $msg
+	 * @param array $config
 	 * @throws Throwable
 	 */
-	public function process(Job $job, string $action, $maxTries, array $body, AMQPMessage $msg) {
+	public function process(Job $job, string $action, $maxTries, array $body, AMQPMessage $msg, array $config) {
 		if ($maxTries > 0 && $job->attempts() > $maxTries) {
 			//执行不能超过指定次数
 		} else {
@@ -108,13 +109,13 @@ class Worker {
 					$this->failed('执行失败,未返回"true"', $body);
 				}
 			} catch (PDOException $e) {
-				$job->release();
+				$job->release($config);
 				$this->failed('执行出错,数据库错误:' . json_encode(['error' => $e->getData()]), $body);
 			} catch (Exception $e) {
-				$job->release();
+				$job->release($config);
 				$this->failed('执行出错,代码错误:' . json_encode(['error' => $e->getData()]), $body);
 			} catch (Throwable $e) {
-				$job->release();
+				$job->release($config);
 				$this->failed('执行出错,异常错误:' . json_encode(['error' => $e->getMessage()]), $body);
 			}
 		}
@@ -122,16 +123,12 @@ class Worker {
 	}
 
 	/**
+	 * 记录队列错误
 	 * @param string $msg
 	 * @param array $body
-	 * @throws \think\Exception
+	 * @return bool
 	 */
 	public function failed(string $msg, array $body) {
-//		Db::connect('mall_log')->name('queue_log')->insert([
-//			'job' => $body['job'],
-//			'data' => json_encode($body['data']),
-//			'msg' => $msg,
-//			'time' => date('Y-m-d H:i:s'),
-//		]);
+		return true;
 	}
 }

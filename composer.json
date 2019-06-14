@@ -29,7 +29,7 @@
   "extra": {
     "think": {
       "config": {
-        "queue": "rabbit_mq.php"
+        "rabbit_mq": "rabbit_mq.php"
       }
     }
   }

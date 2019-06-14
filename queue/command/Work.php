@@ -23,10 +23,10 @@ class Work extends Command {
 
 	protected function configure() {
 		$this->setName('queue:work')
-			->addOption('exchange', 'e', Option::VALUE_OPTIONAL, 'exchange', 128)
-			->addOption('queue', 'q', Option::VALUE_OPTIONAL, 'queue', 128)
-			->addOption('memory', 'm', Option::VALUE_OPTIONAL, 'memory', 128)
-			->addOption('tries', 't', Option::VALUE_OPTIONAL, 'tries', 1)
+			->addOption('exchange', null, Option::VALUE_OPTIONAL, 'exchange', 128)
+			->addOption('queue', null, Option::VALUE_OPTIONAL, 'queue', 128)
+			->addOption('memory', null, Option::VALUE_OPTIONAL, 'memory', 128)
+			->addOption('tries', null, Option::VALUE_OPTIONAL, 'tries', 1)
 			->setDescription('Process queue');
 	}
 

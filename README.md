@@ -1,18 +1,18 @@
-#基于RabbitMQ ThinkPHP 的队列封装
+# 基于RabbitMQ ThinkPHP 的队列封装
 
-##安装使用
+## 安装使用
 ```
 composer require hznt/mall_php_queue
 ```
 
 
-##配置文件
+## 配置文件
 ```
 复制composer库目录下的 rabbit_mq.php 文件到 config/rabbit_mq.php
 ```
 
 
-发布消息队列
+## 发布消息队列
 
 ```
 use Queue;
@@ -52,7 +52,7 @@ Queue::pash($job,$data,$attempts,['exchange' => 'mall_dev_log', 'queue' => 'mall
 
 
 
-##监听任务并执行
+## 监听任务并执行
 
 ```
 php think queue:work --exchange=mall_dev --queue=mall_dev --memory=128 --tries=3

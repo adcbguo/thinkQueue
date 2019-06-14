@@ -24,7 +24,7 @@ class Queue {
 		$data = [
 			'job_id' => $job_id,
 			'job' => $job,
-			'ip' => get_client_ip(0, true),
+			'ip' => request()->ip(0, true),
 			'url' => request()->url(),
 			'time' => time(),
 			'data' => $data,

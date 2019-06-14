@@ -22,11 +22,12 @@ class Worker {
 	 * 处理消息队列
 	 * @param int $maxTries
 	 * @param int $memory
+	 * @param array $config
 	 * @throws \ErrorException
 	 * @throws \ReflectionException
 	 */
-	public function pop(int $maxTries = 0, $memory) {
-		Mq::make()->monitor(function (AMQPMessage $msg) use ($maxTries, $memory) {
+	public function pop(int $maxTries = 1, int $memory = 128, array $config = []) {
+		Mq::make($config)->monitor(function (AMQPMessage $msg) use ($maxTries, $memory) {
 
 			$body = json_decode($msg->getBody(), true);
 
@@ -103,7 +104,7 @@ class Worker {
 			//执行不能超过指定次数
 		} else {
 			try {
-				if (!$job->{$action}()){
+				if (!$job->{$action}()) {
 					$this->failed('执行失败,未返回"true"', $body);
 				}
 			} catch (PDOException $e) {

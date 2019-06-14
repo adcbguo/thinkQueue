@@ -23,9 +23,11 @@ class Work extends Command {
 
 	protected function configure() {
 		$this->setName('queue:work')
-			->addOption('memory', null, Option::VALUE_OPTIONAL, 'The memory limit in megabytes', 128)
-			->addOption('tries', null, Option::VALUE_OPTIONAL, 'Number of times to attempt a job before logging it failed', 0)
-			->setDescription('Process the next job on a queue');
+			->addOption('exchange', 'e', Option::VALUE_REQUIRED, 'exchange', 128)
+			->addOption('queue', 'q', Option::VALUE_REQUIRED, 'queue', 128)
+			->addOption('memory', 'm', Option::VALUE_OPTIONAL, 'memory', 128)
+			->addOption('tries', 't', Option::VALUE_OPTIONAL, 'tries', 1)
+			->setDescription('Process queue');
 	}
 
 	/**
@@ -36,6 +38,10 @@ class Work extends Command {
 	 * @throws Throwable
 	 */
 	public function execute(Input $input, Output $output) {
-		$this->worker->pop($input->getOption('tries'),$input->getOption('memory'));
+		$exchange = $input->getOption('exchange');
+		$queue = $input->getOption('queue');
+		$memory = $input->getOption('memory');
+		$tries = $input->getOption('tries');
+		$this->worker->pop($tries, $memory, ['exchange' => $exchange, 'queue' => $queue]);
 	}
 }

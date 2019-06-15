@@ -124,11 +124,11 @@ class Worker {
 		try {
 			if (!$job->{$action}()) $job->failed('执行后未返回"true"', [], $body, $config);
 		} catch (PDOException $e) {
-			$job->failed('执行数据库操作错误', $e->getTrace(), $body, $config);
+			$job->failed('执行数据库操作错误', ['error' => $e->getTraceAsString()], $body, $config);
 		} catch (Exception $e) {
-			$job->failed('执行代码异常2', $e->getTrace(), $body, $config);
+			$job->failed('执行代码异常2', ['error' => $e->getTraceAsString()], $body, $config);
 		} catch (Throwable $e) {
-			$job->failed('执行代码异常1', $e->getTrace(), $body, $config);
+			$job->failed('执行代码异常1', ['error' => $e->getTraceAsString()], $body, $config);
 		}
 
 		//执行后删除

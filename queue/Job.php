@@ -77,7 +77,7 @@ abstract class Job {
 
 	/**
 	 * 默认的消耗类
-	 * @return mixed
+	 * @return bool
 	 */
 	abstract public function fire();
 

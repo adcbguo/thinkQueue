@@ -33,7 +33,7 @@ abstract class Job {
 	 * @param int $attempts 执行次数
 	 * @param array $data 执行数据
 	 */
-	public function __construct(string $name = '', int $attempts = 0, array $data = []) {
+	public function __construct(string $name, int $attempts = 0, array $data = []) {
 		$this->attempts = $attempts;
 		$this->name = $name;
 		$this->data = $data;

@@ -13,7 +13,8 @@
   "require": {
     "php": ">=7.2.0",
     "topthink/framework": "6.0.0",
-    "php-amqplib/php-amqplib": "^2.9"
+    "php-amqplib/php-amqplib": "^2.9",
+    "ext-json": "*"
   },
   "conflict": {
     "topthink/think-queue": "*"

@@ -2,7 +2,7 @@
 
 ## 安装使用
 ```
-composer require hznt/mall_php_queue
+composer require adcbguo/think_rabbit_mq
 ```
 
 

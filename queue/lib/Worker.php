@@ -5,9 +5,8 @@ namespace queue\lib;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Message\AMQPMessage;
 use queue\Job;
-use think\Db;
 use think\Exception;
-use think\exception\PDOException;
+use think\db\exception\PDOException;
 use Throwable;
 
 class Worker {
@@ -26,7 +25,7 @@ class Worker {
 	 * @throws \ErrorException
 	 * @throws \ReflectionException
 	 */
-	public function pop(int $maxTries = 1, int $memory = 128, array $config = []) {
+	public function pop(int $maxTries, int $memory, array $config = []) {
 		Mq::make($config)->monitor(function (AMQPMessage $msg) use ($maxTries, $memory, $config) {
 
 			$body = json_decode($msg->getBody(), true);

@@ -65,6 +65,9 @@ class Mq {
 		}
 	}
 
+    /**
+     * @throws \Exception
+     */
 	public function __destruct() {
 		if (isset($this->handler)) $this->handler->close();
 	}

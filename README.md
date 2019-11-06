@@ -8,7 +8,12 @@ composer require adcbguo/think_rabbit_mq
 
 ## 配置文件 
 ```
-复制composer库目录下的 rabbit_mq.php 文件到 config/rabbit_mq.php
+
+// 复制配置文件 
+vendor\adcbguo\think_rabbit_mq\rabbit_mq.php 文件到 config/rabbit_mq.php
+
+// 配置自定义命令 config\console.php 增加一行
+'queue:work' => 'queue\command\Work'
 ```
 
 
@@ -58,9 +63,9 @@ Queue::pash($job,$data,$attempts,['exchange' => 'mall_dev_log', 'queue' => 'mall
 php think queue:work --exchange=mall_dev --queue=mall_dev --memory=128 --tries=3
 ```
 
-> `exchange` 消耗的虚拟机
+> `exchange` RabbitMQ的虚拟机
 
-> `queue` 消耗的队列
+> `queue` RabbitMQ的队列
 
 > `memory` 单个进程使用的最大内存,超出内存会从新启动一个进程
 

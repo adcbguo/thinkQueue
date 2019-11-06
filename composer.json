@@ -1,5 +1,5 @@
 {
-  "name": "adcbguo/thinkQueue",
+  "name": "adcbguo/think_rabbit_mq",
   "description": "this is mall queue",
   "type": "library",
   "version": "1.0.0",
